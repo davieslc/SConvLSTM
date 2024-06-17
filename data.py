@@ -1,4 +1,3 @@
-# %%
 import torch 
 import torch.nn as nn
 import numpy as np
@@ -6,10 +5,6 @@ import seaborn as sns
 import pandas as pd 
 import lightning as L
 
-# %% [markdown]
-# # UCI HAR
-
-# %%
 DATADIR = 'data/UCI HAR/UCI HAR Dataset/UCI HAR Dataset'
 
 # Raw data signals
@@ -77,17 +72,13 @@ def load_data():
 
     return X_train.swapaxes(1,2), X_test.swapaxes(1,2), y_train, y_test
 
-# %%
 x_train, x_test, y_train, y_test = load_data()
 
-# %%
 x_train.size()
 
-# %%
 num_classes = y_train.argmax(-1).unique().size()[0]
 num_classes
 
-# %%
 class SConvLSTM(nn.Module):
     def __init__(self, num_classes=6):
         super(SConvLSTM, self).__init__()
@@ -220,7 +211,6 @@ class UCIHARDataModule(L.LightningDataModule):
             shuffle=True
         )
 
-# %%
 for lr in [0.1, 0.01, 0.001, 0.0001, 0.00001, 0.000001]:
     trainer = L.Trainer(max_epochs=20)
     model = SConvLSTMLightning(lr=lr)
